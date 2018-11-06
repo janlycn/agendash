@@ -2,7 +2,7 @@
 $(function () {
   var CurrentRequestModel = Backbone.Model.extend({
     defaults: {
-      refreshInterval: 2000,
+      refreshInterval: 5000,
       overviewFilterRegex: /.*/
     }
   })
@@ -171,7 +171,7 @@ $(function () {
       var selectedJobCount = this.getSelectedJobs().length
       this.$('.number-selected').text(selectedJobCount)
       this.$el.toggle(!!selectedJobCount)
-      this.$('[data-action=delete-jobs]').removeClass('deleteable').text('Delete selected')
+      this.$('[data-action=delete-jobs]').removeClass('deleteable').text('删除所有')
       return this
     },
     requeueJobs: function () {
@@ -182,7 +182,7 @@ $(function () {
       })
     },
     allowDeleteJobs: function () {
-      this.$('[data-action=delete-jobs]').addClass('deleteable').text('Confirm delete selection')
+      this.$('[data-action=delete-jobs]').addClass('deleteable').text('危险，再次确认')
     },
     deleteJobs: function () {
       var selectedJobIds = this.getSelectedJobs().map(function (j) { return j.get('_id') })
@@ -241,7 +241,7 @@ $(function () {
       })
     },
     allowDeleteJob: function (e) {
-      $(e.currentTarget).addClass('deleteable').text('Confirm deletion')
+      $(e.currentTarget).addClass('deleteable').text('确认删除')
     },
     deleteJob: function (e) {
       postJobs('delete', [this.model.get('job')._id])
